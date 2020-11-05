@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //错误的捕获
+        try{
+            const e = '';
+            e();
+        }catch(err){
+            /*
+            err里面含有两个非常重要的属性
+            message:显示错误的相关信息
+            stack:会显示错误具体信息 错误的文件的位置
+            */
+           console.log(err.message);
+        }
+        console.log('.....');
+        //抛出错误
+        function jian(){
+            var time = new Date();
+            if(time % 2==0){
+                console.log('正在工作');
+            }else{
+                throw new Error('当前事件为奇数' + time)  //抛出错误
+            }
+        }
+        try{
+            jian();
+        }catch(err){
+            console.log(err.message);  
+        }
+    </script>
+</body>
+</html>
