@@ -19,6 +19,9 @@
             */
            console.log(err.message);
         }
+        setTimeout(function(){
+            console.log('jian'); //会放到回调队列里面 会后执行
+        })
         console.log('.....');
         //抛出错误
         function jian(){
@@ -34,6 +37,13 @@
         }catch(err){
             console.log(err.message);  
         }
+        var a=new Promise((resolve,reject)=>{
+            resolve(2);
+            // reject('l')
+        })
+        setTimeout(function(){
+            a.then(value=>{console.log(2);})
+        },1000) //会在1秒以后输出2
     </script>
 </body>
 </html>

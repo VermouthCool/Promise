@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.创建promise对象(pending状态),指定执行器函数
+       const promise = new Promise(function(resolve,reject){
+            //2.在执行器中开启异步任务
+            setTimeout(function(){
+                console.log(Date);
+                let time = Date.now();
+                if(time%2 == 0){
+                    resolve('成功')
+                }else{
+                    reject('失败了');
+                }
+            },1000)
+            //3.如果成功了 调用resolve 变为成功状态 指定value  失败了调用reject  变为失败状态 指定reason
+        })
+        promise.then(value =>{
+            console.log(value);
+        },reason =>{
+            console.log(reason);
+        })
+        //分装一个Ajax请求
+        function Ajaxpromise(url){
+            return new Promise((resolve,reject)=>{
+                const xhr = new XMLHttpRequest();
+                xhr.open('get',url);
+                xhr.send();
+                // console.log(xhr.response);
+                xhr.onreadystatechange=function(){
+                    // console.log(xhr.readyState);
+                    if(xhr.readyState != 4) return;
+                    if( xhr.readyState == 4){
+                        // console.log(xhr.response);
+                        resolve(JSON.parse(xhr.response))
+                    }else{
+                        // console.log(2);
+                        reject(new Error('jian'))
+                    }
+                }
+            })
+        };
+        Ajaxpromise("https://api.apiopen.top/getSingleJoke?sid=28654780")
+        .then(value =>{
+            console.log(value);
+        },reason =>{
+            console.log(reason.message);
+        });
+    </script>
+</body>
+</html>

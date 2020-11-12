@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            改变promise的状态和指定回调函数谁前谁后
+            1.都有可能
+            当先改变状态时 回调指定是就会执行
+            先指定回调时  状态改变时就会指定回调
+            2.then()返回的新的promise的状态有什么决定 .catch()也是这个规律
+                由then执行的回调函数的执行结果决定
+                当执行的函数抛出错误 则新的promise的状态就变为rejected reason为抛出的错误
+                当执行的函数没报错是 新的promise的状态就是resolved value为返回值
+                当执行的函数返回一个失败或者成功的promise 这个promise的状态就是返回的新的promise的状态
+            3.使用promise串联多个操作任务
+                
+        */
+       new Promise((resolve,reject)=>{
+           resolve(1)
+       }).then((value)=>{
+           console.log(value);
+       },reason=>{
+           return Promise.reject(new Error('shuai'))
+       }).catch((reason)=>{
+
+       })
+       //4.Promise的错误穿透
+       new Promise((resolve,reason)=>{
+           reject(1)
+       }).then((value)=>{
+           console.log(value);
+       } //.then里没有指定失败的回调函数 系统会默认写了,reason=>{throw reason}
+       ).then((value)=>{
+           console.log(value);
+       }).catch((reason)=>{
+           console.log(reason);
+       })
+       //5.想要中断.then的链式调用只需要再想要终端的地方 return 一个新的处于pending状态的promise return new Promise(()=>{})
+       
+    </script>
+</body>
+</html>
