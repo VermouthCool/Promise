@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //async是异步函数 他的返回值都是一个Promise对象 他的状态由其函数体的执行结果决定
+        //async就相当于一个then()他的结果由他的函数体决定 awiat后面的表示成功的回调 awite的返回值就是成功的值 后面的为成功的回调
+
+        //await只能写在async函数内 await
+        async function jian(){
+            // return Promise.resolve(2);
+        //             Promise {<pending>}
+        // __proto__: Promise
+        // [[PromiseState]]: "fulfilled"
+        // [[PromiseResult]]: 2
+        throw 3
+        }
+        let a =jian();
+        console.log(a);
+        function fn(){
+            return new Promise((resolve,reject)=>{
+                setTimeout(function(){
+                    // resolve(15);
+                    // reject(15)
+                },1000)
+            });
+        }
+        async function shuai(){
+            // try{
+            //     let a = await fn();
+            //     console.log(a);
+            //     console.log('jian');
+            // }catch(err){
+            //     console.log(err);
+            // }
+            //await后面可以跟一个Promise对象 这个对象可以是pending状态 但不能是rejected状态
+            //其实就相当于调用了.then()方法 
+            // fn.then(()=>{
+            //     console.log(a);
+            // })
+            //使用try ...catch来处理await后面是错误回调的情况
+            let a = await fn();
+            console.log(a);
+            return 2//这个时候 return也不会执行 就相当于整个在一个回调队列里 await的执行不会改变async的返回的promise的结果
+        }
+        let m = shuai();
+       console.log(m);
+
+
+       async function didi(){
+           console.log('检查');
+       }
+       didi();
+       console.log('测试');
+    </script>
+</body>
+</html>

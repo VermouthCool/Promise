@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <script src="./lib2/Promise.js"></script> -->
+    <script>
+       let p = new Promise((resolve,reject)=>{
+        //    resolve(1);
+        // setTimeout(function(){
+        //     throw 3
+        // })
+        throw 3
+       });
+      p.then(value=>{
+          console.log('1');
+      }).then(value=>{
+
+      },reason=>{
+          console.log('-2');
+      })
+      class Person{
+          call(){
+              console.log('输出call');
+          }
+      }
+      let person = new Person();
+      Person.call;
+      person.call();
+    </script>
+</body>
+</html>
